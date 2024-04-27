@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Search</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Example: Style for the search bar */
+        #search-bar {
+            width: 300px;
+            padding: 5px;
+        }
+
+        /* Style for hiding the restaurant list container */
+        #restaurant-list {
+            display: none;
+        }
+
+        /* Style for restaurant images */
+        .restaurant-image {
+            max-width: 400px;
+            max-height: 300px;
+        }
+ #restaurant-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Adjust as needed */
+        }
+
+        /* Style for restaurant items in the gallery */
+        .restaurant-item {
+            max-width: 48%; /* Adjust the width as needed */
+            margin-bottom: 20px; /* Add space between rows */
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .restaurant-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+body {
+    background-image: url('data:image/jpeg;base64,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'); /* Replace 'path/to/your/image.jpg' with the actual path or URL of your background image */
+    background-size: cover; /* Adjust to your preferred size behavior */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-attachment: fixed; /* Keep the background fixed */
+    /* You can also set background color or other styles here */
+}
+    </style>
+    <link rel="stylesheet" href="end.css" />
+
+</head>
+<body>
+    <h1>Restaurant Search</h1>
+    
+    <!-- Search bar for dish name -->
+    <input type="text" id="search-bar" placeholder="Search for a dish" onclick="showRestaurantImage()">
+    
+    <!-- Sorting options -->
+    <label for="sort-select">Sort by:</label>
+    <select id="sort-select">
+        <option value="lowToHigh">Low to High</option>
+        <option value="highToLow">High to Low</option>
+    </select>
+    <button id="search-button">Search</button>
+
+    <!-- Restaurant list container -->
+    <div id="restaurant-list">
+        <!-- Restaurant items will be added here dynamically -->
+    </div>
+
+    <script>
+                 const restaurants = [
+            {
+                restaurantName: "Homestyle bites",
+                dishName: "Idly",
+                cost: 90,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Idly",
+                cost: 50,
+                image: "https://i.postimg.cc/5NMyhHng/j2.jpg"
+
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Idly",
+                cost: 60,
+                image: "https://i.postimg.cc/x8VjV7y8/j3.jpg"
+
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Idly",
+                cost: 80,
+                image: "https://i.postimg.cc/k5wW4Qh7/j4.jpg"
+
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Idly",
+                cost: 100,
+                image: "https://i.postimg.cc/ZYWsGnCW/j5.jpg"
+
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Dosa",
+                cost: 100,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Dosa",
+                cost: 90,
+                image: "https://i.postimg.cc/5NMyhHng/j2.jpg"
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Dosa",
+                cost: 70,
+                image: "https://i.postimg.cc/x8VjV7y8/j3.jpg"
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Dosa",
+                cost: 120,
+                image: "https://i.postimg.cc/k5wW4Qh7/j4.jpg"
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Dosa",
+                cost: 140,
+                image: "https://i.postimg.cc/ZYWsGnCW/j5.jpg"
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Noodles",
+                cost: 150,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Noodles",
+                cost: 140,
+                image: "https://i.postimg.cc/5NMyhHng/j2.jpg"
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Noodles",
+                cost: 180,
+                image: "https://i.postimg.cc/x8VjV7y8/j3.jpg"
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Noodles",
+                cost: 200,
+                image: "https://i.postimg.cc/k5wW4Qh7/j4.jpg"
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Noodles",
+                cost: 100,
+                image: "https://i.postimg.cc/ZYWsGnCW/j5.jpg"
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Biryani",
+                cost: 200,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Biryani",
+                cost: 180,
+                image: "https://i.postimg.cc/5NMyhHng/j2.jpg"
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Biryani",
+                cost: 300,
+                image: "https://i.postimg.cc/x8VjV7y8/j3.jpg"
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Biryani",
+                cost: 250,
+                image: "https://i.postimg.cc/k5wW4Qh7/j4.jpg"
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Biryani",
+                cost: 120,
+                image: "https://i.postimg.cc/k5wW4Qh7/j5.jpg"
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Roti",
+                cost: 5,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Roti",
+                cost: 4,
+                image: "https://i.postimg.cc/nLwMg0P9/j2.jpg"
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Roti",
+                cost: 6,
+                image: "https://i.postimg.cc/nLwMg0P9/j3.jpg"
+
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Roti",
+                cost: 8,
+                image: "https://i.postimg.cc/nLwMg0P9/j4.jpg"
+
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Roti",
+                cost: 10,
+                image: "https://i.postimg.cc/nLwMg0P9/j5.jpg"
+
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Manchuria",
+                cost: 90,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Manchuria",
+                cost: 110,
+                image: "https://i.postimg.cc/nLwMg0P9/j2.jpg"
+
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Manchuria",
+                cost: 60,
+                image: "https://i.postimg.cc/nLwMg0P9/j3.jpg"
+
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Manchuria",
+                cost: 80,
+                image: "https://i.postimg.cc/nLwMg0P9/j4.jpg"
+
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Manchuria",
+                cost: 100,
+                image: "https://i.postimg.cc/nLwMg0P9/j5.jpg"
+
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Milkshake",
+                cost: 90,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Milkshake",
+                cost: 85,
+                image: "https://i.postimg.cc/nLwMg0P9/j2.jpg"
+
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Milkshake",
+                cost: 60,
+                image: "https://i.postimg.cc/nLwMg0P9/j3.jpg"
+
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Milkshake",
+                cost: 40,
+                image: "https://i.postimg.cc/nLwMg0P9/j4.jpg"
+
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Milkshake",
+                cost: 100,
+                image: "https://i.postimg.cc/nLwMg0P9/j5.jpg"
+
+            },
+{
+                restaurantName: "Homestyle bites",
+                dishName: "Ice-cream",
+                cost: 30,
+                image: "https://i.postimg.cc/nLwMg0P9/j1.jpg"
+
+            },
+{
+                restaurantName: "Flavours of the earth",
+                dishName: "Ice-cream",
+                cost: 50,
+                image: "https://i.postimg.cc/nLwMg0P9/j2.jpg"
+
+            },
+{
+                restaurantName: "Royal cuisine",
+                dishName: "Ice-cream",
+                cost: 60,
+                image: "https://i.postimg.cc/nLwMg0P9/j3.jpg"
+
+            },
+{
+                restaurantName: "Flavourful Fusion",
+                dishName: "Ice-cream",
+                cost: 80,
+                image: "https://i.postimg.cc/nLwMg0P9/j4.jpg"
+
+            },
+{
+                restaurantName: "Snap&savour",
+                dishName: "Ice-cream",
+                cost: 100,
+                image: "https://i.postimg.cc/nLwMg0P9/j5.jpg"
+
+            },
+
+
+            // Add more restaurant data here
+        ];
+
+        const searchInput = document.getElementById('search-bar');
+        const sortSelect = document.getElementById('sort-select');
+        const restaurantList = document.getElementById('restaurant-list');
+
+        function showRestaurantImage() {
+            searchInput.removeEventListener('click', showRestaurantImage);
+            searchInput.addEventListener('click', function() { });
+            const searchTerm = searchInput.value.toLowerCase();
+            const sortOrder = sortSelect.value;
+
+            const filteredRestaurants = restaurants.filter(restaurant => {
+                return restaurant.dishName.toLowerCase().includes(searchTerm);
+            });
+
+            filteredRestaurants.sort((a, b) => {
+                if (sortOrder === 'lowToHigh') {
+                    return a.cost - b.cost;
+                } else if (sortOrder === 'highToLow') {
+                    return b.cost - a.cost;
+                }
+            });
+
+            if (searchTerm) {
+                restaurantList.innerHTML = ''; // Clear the list
+
+                filteredRestaurants.forEach(restaurant => {
+                    const restaurantItem = document.createElement('div');
+                    restaurantItem.innerHTML = `
+                        <h3>${restaurant.restaurantName}</h3>
+                        <p>Dish: ${restaurant.dishName}</p>
+                        <p>Cost: $${restaurant.cost}</p>
+                        <img class="restaurant-image" src="${restaurant.image}" alt="${restaurant.dishName}">
+                    `;
+                    restaurantList.appendChild(restaurantItem);
+                });
+
+                restaurantList.style.display = 'block'; // Show the list
+            } else {
+                restaurantList.style.display = 'none'; // Hide the list when there's no search term
+            }
+        }
+        // Add event listener to update the list as the user types
+        searchInput.addEventListener('input', showRestaurantImage);
+        sortSelect.addEventListener('change', showRestaurantImage);
+    </script>
+</body>
+</html>
